@@ -24,12 +24,18 @@ def plot_regression(X, y):
 
     return reg
 
-
 st.title("Interactive Regression on Simulated Data")
 
 # Simulate the data
 X, y = simulate_data()
 
+# Display dataset
+st.write("Simulated Dataset:")
+st.write("X values:", X.flatten())
+st.write("Y values:", y.flatten())
+
 if st.button('Run Regression'):
     reg = plot_regression(X, y)  # Capture the returned regression object
     st.write(f"Equation: y = {reg.coef_[0][0]:.2f}X + {reg.intercept_[0]:.2f}")
+    st.write("Here's how the regression worked:")
+    st.write("A linear regression model was fitted to the simulated dataset. The regression line represents the best-fit line that minimizes the sum of squared errors between the predicted values and actual values.")
