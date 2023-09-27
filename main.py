@@ -10,19 +10,20 @@ def simulate_data():
     y = 4 + 3 * X + np.random.randn(100, 1)
     return X, y
 
-# Linear Regression and Plotting
 def plot_regression(X, y):
     reg = LinearRegression().fit(X, y)
     line = reg.coef_ * X + reg.intercept_
 
-    plt.scatter(X, y)
-    plt.plot(X, line, 'r')
-    plt.title("Linear Regression")
-    plt.xlabel("X")
-    plt.ylabel("y")
-    st.pyplot()
-    
-    return reg  # Return the regression object
+    fig, ax = plt.subplots()  # Create figure and axis objects
+    ax.scatter(X, y)
+    ax.plot(X, line, 'r')
+    ax.set_title("Linear Regression")
+    ax.set_xlabel("X")
+    ax.set_ylabel("y")
+    st.pyplot(fig)  # Pass the figure object explicitly
+
+    return reg
+
 
 st.title("Interactive Regression on Simulated Data")
 
