@@ -21,6 +21,8 @@ def plot_regression(X, y):
     plt.xlabel("X")
     plt.ylabel("y")
     st.pyplot()
+    
+    return reg  # Return the regression object
 
 st.title("Interactive Regression on Simulated Data")
 
@@ -28,5 +30,5 @@ st.title("Interactive Regression on Simulated Data")
 X, y = simulate_data()
 
 if st.button('Run Regression'):
-    plot_regression(X, y)
+    reg = plot_regression(X, y)  # Capture the returned regression object
     st.write(f"Equation: y = {reg.coef_[0][0]:.2f}X + {reg.intercept_[0]:.2f}")
