@@ -21,27 +21,17 @@ def simulate_collider_data():
 def plot_collider_dag(df):
     # Y -> Z <- X
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
     
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
-    mod = smf.ols(formula='Y ~ X + Z', data=df)
-    res = mod.fit()
-
-    st.write(res.summary())
-    
-    fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.plot_partregress(endog='Y', exog_i='X', exog_others='Z', data=df, ax=ax, obs_labels=False)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    st.pyplot(fig)
 
 # Button for Collider DAG
 if st.button('Generate Collider DAG'):
