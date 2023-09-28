@@ -16,7 +16,7 @@ with buttons[0]:
 with buttons[1]:
     mediator_button = st.button('Generate Mediator DAG')
 with buttons[2]:
-    fork_button = st.button('Generate Fork DAG')
+    fork_button = st.button('Generate Fork     DAG')
 with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
@@ -96,6 +96,7 @@ if mediator_button:
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
     st.text(res.summary().as_text())
+    print(res.summary())
 
 
 
@@ -134,6 +135,7 @@ if fork_button:
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
     st.text(res.summary().as_text())
+    print(res.summary())
 
 
 
@@ -172,4 +174,5 @@ if confounding_button:
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
     st.text(res.summary().as_text())
+    print(res.summary())
 
