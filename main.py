@@ -16,7 +16,7 @@ with buttons[0]:
 with buttons[1]:
     mediator_button = st.button('Generate Mediator DAG')
 with buttons[2]:
-    fork_button = st.button('Generate Fork     DAG')
+    fork_button = st.button('Generate Fork DAG')
 with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
