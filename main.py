@@ -138,7 +138,7 @@ def plot_confounding_dag(df):
 if st.button('Generate Confounding DAG'):
     df = simulate_confounding_data()
     plot_confounding_dag(df)
-       st.write("""
+    st.write("""
     **Confounding DAG Explanation**:
     
     This DAG involves three variables: X, Y, and Z. Z acts as a common cause of both X and Y, while X directly affects Y as well. This scenario illustrates the concept of confounding, where a third variable (Z) influences both the treatment (X) and the outcome (Y). Understanding confounding is crucial in causal inference.
