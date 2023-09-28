@@ -55,7 +55,8 @@ if collider_button:
     """)
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
-    st.text(res.summary().tables[1].as_text())
+    st.text(res.summary().as_text())
+
 
 
 # Mediator DAG
@@ -93,7 +94,8 @@ if mediator_button:
     """)
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
-    st.text(res.summary().tables[1].as_text())
+    st.text(res.summary().as_text())
+
 
 
 # Fork DAG
@@ -130,7 +132,8 @@ if fork_button:
     """)
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
-    st.text(res.summary().tables[1].as_text())
+    st.text(res.summary().as_text())
+
 
 
 # Confounding DAG
@@ -167,4 +170,5 @@ if confounding_button:
     """)
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
-    st.text(res.summary().tables[1].as_text())
+    st.text(res.summary().as_text())
+
