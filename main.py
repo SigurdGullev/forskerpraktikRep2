@@ -56,6 +56,7 @@ if collider_button:
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
     st.text(res.summary().as_text())
+    print(res.summary())
 
 
 
