@@ -7,7 +7,7 @@ import statsmodels.formula.api as smf
 import statsmodels.graphics.regressionplots as sm
 
 st.title("Directed Acyclical Graphs (DAGs)")
-col1, col2, col3, col4 = st.beta_columns(4)
+col1, col2, col3, col4 = st.columns(4)
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
