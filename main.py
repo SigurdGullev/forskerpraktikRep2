@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import statsmodels.formula.api as smf
-import statsmodels.graphics.api as sm
+import statsmodels.graphics.regressionplots as sm
 
 st.title("Directed Acyclical Graphs (DAGs)")
 
