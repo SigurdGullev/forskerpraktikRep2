@@ -1,41 +1,133 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+import statsmodels.formula.api as smf
+import statsmodels.graphics.regressionplots as sm
 
-# Simulate a Dataset
-def simulate_data():
-    np.random.seed(42)  # Seed for reproducibility
-    X = 2 * np.random.rand(100, 1)
-    y = 4 + 3 * X + np.random.randn(100, 1)
-    return X, y
+st.title("Directed Acyclical Graphs (DAGs)")
 
-def plot_regression(X, y):
-    reg = LinearRegression().fit(X, y)
-    line = reg.coef_ * X + reg.intercept_
+# Collider DAG
+def simulate_collider_data():
+    SIZE = 1000
+    X = np.random.normal(size=SIZE)
+    Y = np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)  # noise
+    Z = 2*X + 1*Y + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
 
-    fig, ax = plt.subplots()  # Create figure and axis objects
-    ax.scatter(X, y)
-    ax.plot(X, line, 'r')
-    ax.set_title("Linear Regression")
-    ax.set_xlabel("X")
-    ax.set_ylabel("y")
-    st.pyplot(fig)  # Pass the figure object explicitly
+def plot_collider_dag(df):
+    # Y -> Z <- X
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)
 
-    return reg
 
-st.title("Interactive Regression on Simulated Data")
+# Button for Collider DAG
+if st.button('Generate Collider DAG'):
+    df = simulate_collider_data()
+    plot_collider_dag(df)
 
-# Simulate the data
-X, y = simulate_data()
+# ... (other DAGs can follow a similar pattern)
+# Mediator DAG
+def simulate_mediator_data():
+    SIZE = 1000
+    X = np.random.normal(size=SIZE)
+    Z = 1.5 * X + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)  # noise
+    Y = 2 * Z + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
 
-# Display dataset
-st.write("Simulated Dataset:")
-st.write("X values:", X.flatten())
-st.write("Y values:", y.flatten())
+def plot_mediator_dag(df):
+    # X -> Z -> Y
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)
 
-if st.button('Run Regression'):
-    reg = plot_regression(X, y)  # Capture the returned regression object
-    st.write(f"Equation: y = {reg.coef_[0][0]:.2f}X + {reg.intercept_[0]:.2f}")
-    st.write("Here's how the regression worked:")
-    st.write("A linear regression model was fitted to the simulated dataset. The regression line represents the best-fit line that minimizes the sum of squared errors between the predicted values and actual values.")
+
+# Button for Mediator DAG
+if st.button('Generate Mediator DAG'):
+    df = simulate_mediator_data()
+    plot_mediator_dag(df)
+
+# Fork DAG
+def simulate_fork_data():
+    SIZE = 1000
+    Z = np.random.normal(size=SIZE)
+    X = Z * 1.5 + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)  # noise
+    Y = 2 * Z + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
+def plot_fork_dag(df):
+    # X <- Z -> Y
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)
+
+# Button for Fork DAG
+if st.button('Generate Fork DAG'):
+    df = simulate_fork_data()
+    plot_fork_dag(df)
+
+# Confounding DAG
+def simulate_confounding_data():
+    SIZE = 1000
+    Z = np.random.normal(size=SIZE)
+    X = Z * 1.5 + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)  # noise
+    Y = 2 * Z + X * 1.3 + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
+def plot_confounding_dag(df):
+    # X <- Z -> Y, X -> Y
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)
+
+# Button for Confounding DAG
+if st.button('Generate Confounding DAG'):
+    df = simulate_confounding_data()
+    plot_confounding_dag(df)
+
+# ... [any other DAGs or Streamlit components you have]
+
+
+
