@@ -37,14 +37,14 @@ with col1:
     if st.button('Generate Collider DAG'):
         df = simulate_collider_data()
         plot_collider_dag(df)
-        st.write("**Collider DAG Explanation**:")
-        st.write("""
+        st.markdown("**Collider DAG Explanation**:")
+        st.markdown("""
         In this DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships.
         """)
         mod = smf.ols(formula='Y ~ X + Z', data=df)
         res = mod.fit()
-        with st.expander("Show Collider DAG Regression Summary"):
-            st.text(res.summary().tables[1])
+        with st.expander("Show Collider DAG Regression Summary", use_container_width=True):
+            st.text(res.summary())
 
 # Mediator DAG
 def simulate_mediator_data():
