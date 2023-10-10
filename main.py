@@ -23,7 +23,7 @@ with buttons[3]:
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
+    X = np.random.uniform(0, 10, SIZE)*10  # values between 0 and 10
     Y = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
     e = np.random.normal(size=SIZE)     # noise
     Z = 2*X + 1 *Y + e
