@@ -23,12 +23,20 @@ with buttons[3]:
 # Collider DAG: Exercise, Diet Quality, and Weight
 def simulate_collider_data():
     SIZE = 1000
-    Exercise = np.random.randint(0, 5, SIZE)  # 0-4 hours per week
-    Diet_Quality = np.random.randint(1, 11, SIZE)  # Scale 1-10
+    
+    # Using normal distribution for a smoother distribution of data points
+    Exercise = np.round(np.random.normal(2, 1, SIZE))  # center around 2 hours with std deviation of 1 hour
+    Diet_Quality = np.round(np.random.normal(5.5, 2, SIZE))  # center around 5.5 with std deviation of 2
+    
+    # Ensure values are within desired bounds
+    Exercise = np.clip(Exercise, 0, 4)
+    Diet_Quality = np.clip(Diet_Quality, 1, 10)
+    
     e = np.random.normal(size=SIZE)  # noise
     Weight = 80 - 2*Exercise - 1*Diet_Quality + e  # 80 is an average weight for the population
     df = pd.DataFrame({'Exercise': Exercise, 'Diet_Quality': Diet_Quality, 'Weight': Weight})
     return df
+
 
 def plot_collider_dag(df):
     fig, ax = plt.subplots(figsize=(8, 6))
