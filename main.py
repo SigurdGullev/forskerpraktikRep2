@@ -44,7 +44,7 @@ def plot_collider_dag(df):
     
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
-    ax.set_xlabel('X')
+    ax.set_xlabel('X muggi')
     ax.set_ylabel('Y')
     #ax.set_xlim([0, 10])
     #ax.set_ylim([0, 10])
