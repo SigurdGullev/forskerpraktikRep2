@@ -25,7 +25,7 @@ def simulate_collider_data():
     SIZE = 1000
     X = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
     Y = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
-    e = np.random.normal(0, 10, SIZE)     # noise
+    e = np.random.normal(size=SIZE)     # noise
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
@@ -38,13 +38,18 @@ def plot_collider_dag(df):
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=[], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    st.pyplot(fig)  # Explicitly pass the figure object to Streamlit
+    ax.set_xlim([0, 10])
+    ax.set_ylim([0, 10])
+    st.pyplot(fig)  
     
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
+    ax.set_xlim([0, 10])
+    ax.set_ylim([0, 10])
     st.pyplot(fig)
+
 
 
 # Collider DAG
