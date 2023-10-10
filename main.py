@@ -24,8 +24,8 @@ with buttons[3]:
 # Change in the data simulation for Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = 5 + np.random.uniform(0, 10, size=SIZE) * 2.5 # Mean 5, std dev 2.5
-    Y = 5 + np.random.uniform(0, 10, size=SIZE) * 2.5
+    X = 5 + np.random.uniform(0, 10, size=SIZE) #* 2.5 # Mean 5, std dev 2.5
+    Y = 5 + np.random.uniform(0, 10, size=SIZE) #* 2.5
     e = np.random.normal(size=SIZE)
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
