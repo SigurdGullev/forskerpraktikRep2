@@ -15,7 +15,7 @@ with buttons[0]:
 with buttons[1]:
     mediator_button = st.button('Generate Mediator DAG')
 with buttons[2]:
-    fork_button = st.button('Generate Fork DAG')
+    RCT_button = st.button('Generate RCT DAG')
 with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
@@ -97,8 +97,8 @@ if mediator_button:
     st.text(res.summary().as_text())
     print(res.summary())
 
-# Fork DAG
-def simulate_fork_data():
+# RCT DAG
+def simulate_RCT_data():
     SIZE = 1000
     Z = np.random.normal(size=SIZE)
     X = Z * 1.5 + np.random.normal(size=SIZE)
@@ -107,7 +107,7 @@ def simulate_fork_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-def plot_fork_dag(df):
+def plot_RCT_dag(df):
     # Simple scatter plot between X and Y
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(df['X'], df['Y'], alpha=0.5)
@@ -122,13 +122,13 @@ def plot_fork_dag(df):
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
-if fork_button:
-    df = simulate_fork_data()
-    plot_fork_dag(df)
+if RCT_button:
+    df = simulate_RCT_data()
+    plot_RCT_dag(df)
 
-    st.markdown("**Fork DAG Explanation**:")
+    st.markdown("**RCT DAG Explanation**:")
     st.write("""
-    In this DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a fork structure. Studying forks helps us understand how a common cause can impact multiple variables in a causal system.
+    In this DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.
     """)
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
