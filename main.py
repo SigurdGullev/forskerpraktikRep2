@@ -21,14 +21,16 @@ with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
 # Collider DAG
+# Change in the data simulation for Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = np.random.normal(size=SIZE)
-    Y = np.random.normal(size=SIZE)
-    e = np.random.normal(size=SIZE)  # noise
+    X = 5 + np.random.normal(size=SIZE) * 2.5 # Mean 5, std dev 2.5
+    Y = 5 + np.random.normal(size=SIZE) * 2.5
+    e = np.random.normal(size=SIZE)
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
+
 
 def plot_collider_dag(df):
     # Y -> Z <- X
