@@ -100,12 +100,22 @@ if mediator_button:
 # RCT DAG
 def simulate_RCT_data():
     SIZE = 1000
+
+    # X is randomized treatment, so not influenced by any other variable
+    X = np.random.normal(size=SIZE)
+
+    # Z is some covariates
     Z = np.random.normal(size=SIZE)
-    X = Z * 1.5 + np.random.normal(size=SIZE)
+
+    # e is the error term
     e = np.random.normal(size=SIZE)
-    Y = 2 * Z + e
+
+    # Y is influenced by both the treatment X and covariates Z
+    Y = 1.5 * X + 2 * Z + e
+
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
+
 
 def plot_RCT_dag(df):
     # Simple scatter plot between X and Y
