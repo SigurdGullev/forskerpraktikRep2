@@ -40,11 +40,11 @@ def simulate_collider_data():
 
 def plot_collider_dag(df):
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Weight', exog_i='Exercise', exog_others=[], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Diet_Quality', exog_i='Exercise', exog_others=[], data=df, ax=ax, obs_labels=False)
     st.pyplot(fig)  
     
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Weight', exog_i='Exercise', exog_others=['Diet_Quality'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Diet_Quality', exog_i='Exercise', exog_others=['Diet_Quality'], data=df, ax=ax, obs_labels=False)
     st.pyplot(fig)
 
 if collider_button:
