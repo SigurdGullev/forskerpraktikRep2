@@ -127,9 +127,7 @@ if RCT_button:
     plot_RCT_dag(df)
 
     st.markdown("**RCT DAG Explanation**:")
-    st.write("""
-    In this DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.
-    """)
+    st.write("In this DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.")
     mod = smf.ols(formula='Y ~ X + Z', data=df)
     res = mod.fit()
     st.text(res.summary().as_text())
