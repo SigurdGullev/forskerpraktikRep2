@@ -50,14 +50,19 @@ def plot_collider_dag(df):
 # Collider DAG
 if collider_button:
     df = simulate_collider_data()
-     # Simple scatter plots
+
+    # Simple scatter plots
     st.subheader("Raw Data Plots for Collider DAG")
     fig, ax = plt.subplots()
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
+    ax.set_xlim([0, 10])
+    ax.set_ylim([0, 10])
     st.pyplot(fig)
+
     plot_collider_dag(df)
+    
     st.markdown("**Collider DAG Explanation**:")
     st.write("""
     In this DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships.
