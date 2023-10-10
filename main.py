@@ -23,13 +23,15 @@ with buttons[3]:
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = np.random.normal(size=SIZE)
-    Y = np.random.normal(size=SIZE)
-    e = np.random.normal(size=SIZE)  # noise
+    X = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
+    Y = np.random.uniform(0, 10, SIZE)  # values between 0 and 10
+    e = np.random.normal(size=SIZE)     # noise
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
+
+# bliver man idiot af at være smuk, x- aksen er skønhed, y-akse er intelligens
 def plot_collider_dag(df):
     # Y -> Z <- X
     fig, ax = plt.subplots(figsize=(8, 6))
