@@ -42,13 +42,13 @@ def simulate_collider_data():
 
 def plot_collider_dag(df):
     fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
+    ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
-
 
     fig, ax = set_plot_settings()
     sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
     st.pyplot(fig)
+
 
 if collider_button:
     df = simulate_collider_data()
