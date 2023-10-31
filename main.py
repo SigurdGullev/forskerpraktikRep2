@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
-import statsmodels.api as sm
+import statsmodels.graphics.regressionplots as sm
 
 st.title("Directed Acyclic Graphs (DAGs)")
 
@@ -41,7 +41,7 @@ def plot_collider_dag(df):
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -49,7 +49,7 @@ def plot_collider_dag(df):
 if collider_button:
     df = simulate_collider_data()
     plot_collider_dag(df)
-
+    
     st.markdown("**Collider DAG Explanation**:")
     st.write("""
     In this DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships.
@@ -79,7 +79,7 @@ def plot_mediator_dag(df):
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -126,7 +126,7 @@ def plot_RCT_dag(df):
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -162,7 +162,7 @@ def plot_confounding_dag(df):
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
