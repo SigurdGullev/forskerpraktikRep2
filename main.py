@@ -22,8 +22,8 @@ with buttons[3]:
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = np.random.uniform(0, 10, size=SIZE)
-    Y = np.random.uniform(0, 10, size=SIZE)
+    X = np.random.normal(size=SIZE)
+    Y = np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
