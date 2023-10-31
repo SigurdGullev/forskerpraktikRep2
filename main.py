@@ -1,7 +1,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
 import statsmodels.graphics.regressionplots as sm
 
@@ -19,17 +18,6 @@ with buttons[2]:
 with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
-# Set common plot settings
-def set_plot_settings():
-    fig, ax = plt.subplots()
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    return fig, ax
-
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
@@ -41,14 +29,17 @@ def simulate_collider_data():
     return df
 
 def plot_collider_dag(df):
-    fig, ax = set_plot_settings()
-    ax.scatter(df['X'], df['Y'], alpha=0.5)
-    st.pyplot(fig)
+    st.subheader("Collider DAG")
+    st.write("In this Collider DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships.")
+    st.write("Here are the plots for the Collider DAG:")
+    
+    # Simple scatter plot between X and Y
+    st.write("Scatter plot between X and Y:")
+    st.scatter_chart(df['X', 'Y'])
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
+    # Partial regression with Z as a control variable
+    st.write("Partial regression between X and Y with Z as a control variable:")
+    st.pyplot(sm.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False))
 
 if collider_button:
     df = simulate_collider_data()
@@ -74,13 +65,17 @@ def simulate_mediator_data():
     return df
 
 def plot_mediator_dag(df):
-    fig, ax = set_plot_settings()
-    ax.scatter(df['X'], df['Y'], alpha=0.5)
-    st.pyplot(fig)
+    st.subheader("Mediator DAG")
+    st.write("In this Mediator DAG, we have three variables: X, Y, and Z. X directly influences Y through Z, acting as a mediator. X indirectly affects Y, and Z plays a crucial role in transmitting the effect of X to Y. Understanding mediator relationships is essential for dissecting causal pathways.")
+    st.write("Here are the plots for the Mediator DAG:")
+    
+    # Simple scatter plot between X and Y
+    st.write("Scatter plot between X and Y:")
+    st.scatter_chart(df['X', 'Y'])
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
+    # Partial regression with Z as a control variable
+    st.write("Partial regression between X and Y with Z as a control variable:")
+    st.pyplot(sm.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False))
 
 if mediator_button:
     df = simulate_mediator_data()
@@ -102,4 +97,65 @@ def simulate_RCT_data():
     Z = np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Y = 1.5 * X + 2 * Z + e
-    df = pd
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
+def plot_RCT_dag(df):
+    st.subheader("RCT DAG")
+    st.write("In this RCT (Randomized Control Trial) DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.")
+    st.write("Here are the plots for the RCT DAG:")
+    
+    # Simple scatter plot between X and Y
+    st.write("Scatter plot between X and Y:")
+    st.scatter_chart(df['X', 'Y'])
+
+    # Partial regression with Z as a control variable
+    st.write("Partial regression between X and Y with Z as a control variable:")
+    st.pyplot(sm.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False))
+
+if RCT_button:
+    df = simulate_RCT_data()
+    plot_RCT_dag(df)
+
+    st.markdown("**RCT DAG Explanation**:")
+    st.write("In this RCT (Randomized Control Trial) DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.")
+    mod = smf.ols('Y ~ X + Z', data=df)
+    res = mod.fit()
+    st.text("Regression Summary:")
+    st.text(res.summary().as_text())
+
+# Confounding DAG
+def simulate_confounding_data():
+    SIZE = 1000
+    Z = np.random.normal(size=SIZE)
+    X = Z * 1.5 + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)
+    Y = 2 * Z + X * 1.3 + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
+def plot_confounding_dag(df):
+    st.subheader("Confounding DAG")
+    st.write("In this Confounding DAG, we have three variables: X, Y, and Z. Z acts as a common cause of both X and Y, while X directly affects Y as well. This scenario illustrates the concept of confounding, where a third variable (Z) influences both the treatment (X) and the outcome (Y). Understanding confounding is crucial in causal inference.")
+    st.write("Here are the plots for the Confounding DAG:")
+    
+    # Simple scatter plot between X and Y
+    st.write("Scatter plot between X and Y:")
+    st.scatter_chart(df['X', 'Y'])
+
+    # Partial regression with Z as a control variable
+    st.write("Partial regression between X and Y with Z as a control variable:")
+    st.pyplot(sm.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False))
+
+if confounding_button:
+    df = simulate_confounding_data()
+    plot_confounding_dag(df)
+
+    st.markdown("**Confounding DAG Explanation**:")
+    st.write("""
+    In this Confounding DAG, we have three variables: X, Y, and Z. Z acts as a common cause of both X and Y, while X directly affects Y as well. This scenario illustrates the concept of confounding, where a third variable (Z) influences both the treatment (X) and the outcome (Y). Understanding confounding is crucial in causal inference. In this example, X has a direct effect on Y, but it's also influenced by the common cause Z, leading to potential confounding in the analysis. It's essential to control for Z when studying the relationship between X and Y.
+    """)
+    mod = smf.ols('Y ~ X + Z', data=df)
+    res = mod.fit()
+    st.text("Regression Summary:")
+    st.text(res.summary().as_text())
