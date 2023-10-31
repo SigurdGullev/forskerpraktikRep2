@@ -33,9 +33,9 @@ def plot_collider_dag(df):
     # Simple scatter plot between X and Y
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(df['X'], df['Y'], alpha=0.5)
-    #ax.set_xlabel('X')
-    #ax.set_ylabel('Y')
-    #st.pyplot(fig)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    st.pyplot(fig)
 
 
     # Partial regression with Z as a control variable
