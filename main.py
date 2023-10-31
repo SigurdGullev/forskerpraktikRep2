@@ -1,9 +1,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import statsmodels.formula.api as smf
-import statsmodels.api as sm
-import matplotlib.pyplot as plt  # Import matplotlib.pyplot
+import seaborn as sns  # Import seaborn for regression plots
+import matplotlib.pyplot as plt
 
 st.title("Directed Acyclic Graphs (DAGs)")
 
@@ -21,7 +20,7 @@ with buttons[3]:
 
 # Set common plot settings
 def set_plot_settings():
-    fig, ax = plt.subplots()  # Use plt.subplots() to create a figure and axis
+    fig, ax = plt.subplots()
     ax.set_xticks([])
     ax.set_yticks([])
     ax.spines['top'].set_visible(False)
@@ -45,9 +44,9 @@ def plot_collider_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
+    # Use seaborn for regression plots
+    sns.regplot(x='X', y='Y', data=df)
+    st.pyplot()
 
 if collider_button:
     df = simulate_collider_data()
@@ -57,10 +56,10 @@ if collider_button:
     st.write("""
     In this Collider DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships. In this example, X and Y are not directly related, but their relationship is influenced by the collider Z.
     """)
-    mod = smf.ols('Y ~ X + Z', data=df)
-    res = mod.fit()
-    st.text("Regression Summary:")
-    st.text(res.summary().as_text())
+    # Perform regression without 'statsmodels'
+    corr = df.corr()
+    st.text("Correlation Matrix:")
+    st.write(corr)
 
 # Mediator DAG
 def simulate_mediator_data():
@@ -77,9 +76,9 @@ def plot_mediator_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
+    # Use seaborn for regression plots
+    sns.regplot(x='X', y='Y', data=df)
+    st.pyplot()
 
 if mediator_button:
     df = simulate_mediator_data()
@@ -89,10 +88,10 @@ if mediator_button:
     st.write("""
     In this Mediator DAG, we have three variables: X, Y, and Z. X directly influences Y through Z, acting as a mediator. X indirectly affects Y, and Z plays a crucial role in transmitting the effect of X to Y. Understanding mediator relationships is essential for dissecting causal pathways. In this example, X has an indirect effect on Y through the mediator Z, and it's important to control for Z when analyzing the relationship between X and Y.
     """)
-    mod = smf.ols('Y ~ X + Z', data=df)
-    res = mod.fit()
-    st.text("Regression Summary:")
-    st.text(res.summary().as_text())
+    # Perform regression without 'statsmodels'
+    corr = df.corr()
+    st.text("Correlation Matrix:")
+    st.write(corr)
 
 # RCT DAG
 def simulate_RCT_data():
@@ -109,9 +108,9 @@ def plot_RCT_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
+    # Use seaborn for regression plots
+    sns.regplot(x='X', y='Y', data=df)
+    st.pyplot()
 
 if RCT_button:
     df = simulate_RCT_data()
@@ -119,10 +118,10 @@ if RCT_button:
 
     st.markdown("**RCT DAG Explanation**:")
     st.write("In this RCT (Randomized Control Trial) DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.")
-    mod = smf.ols('Y ~ X + Z', data=df)
-    res = mod.fit()
-    st.text("Regression Summary:")
-    st.text(res.summary().as_text())
+    # Perform regression without 'statsmodels'
+    corr = df.corr()
+    st.text("Correlation Matrix:")
+    st.write(corr)
 
 # Confounding DAG
 def simulate_confounding_data():
@@ -139,5 +138,12 @@ def plot_confounding_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y'),
+    # Use seaborn for regression plots
+    sns.regplot(x='X', y='Y', data=df)
+    st.pyplot()
+
+if confounding_button:
+    df = simulate_confounding_data()
+    plot_confounding_dag(df)
+
+st.text("This code uses seaborn for regression plots instead of statsmodels.")
