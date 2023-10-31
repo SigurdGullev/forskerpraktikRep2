@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
+import matplotlib.pyplot as plt  # Import matplotlib.pyplot
 
 st.title("Directed Acyclic Graphs (DAGs)")
 
@@ -20,7 +21,7 @@ with buttons[3]:
 
 # Set common plot settings
 def set_plot_settings():
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots()  # Use plt.subplots() to create a figure and axis
     ax.set_xticks([])
     ax.set_yticks([])
     ax.spines['top'].set_visible(False)
