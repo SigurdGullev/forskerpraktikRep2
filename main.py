@@ -41,7 +41,7 @@ def plot_collider_dag(df):
     coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
     regression_line = np.polyval(coefficients, x)  # Calculate the regression line
 
-    ax.plot(x, regression_line, color='red', linewidth=2, label='Regression Line')
+    ax.plot(x, regression_line, color='black', linewidth=1, label='Regression Line')
     ax.legend()
     st.pyplot(fig)
 
