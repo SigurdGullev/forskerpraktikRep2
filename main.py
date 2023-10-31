@@ -1,9 +1,8 @@
-from matplotlib import pyplot as plt
 import streamlit as st
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
-import statsmodels.graphics.regressionplots as sm
+import statsmodels.api as sm
 
 st.title("Directed Acyclic Graphs (DAGs)")
 
@@ -140,18 +139,4 @@ def plot_confounding_dag(df):
     st.pyplot(fig)
 
     fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
-if confounding_button:
-    df = simulate_confounding_data()
-    plot_confounding_dag(df)
-
-    st.markdown("**Confounding DAG Explanation**:")
-    st.write("""
-    In this Confounding DAG, we have three variables: X, Y, and Z. Z acts as a common cause of both X and Y, while X directly affects Y as well. This scenario illustrates the concept of confounding, where a third variable (Z) influences both the treatment (X) and the outcome (Y). Understanding confounding is crucial in causal inference. In this example, X has a direct effect on Y, but it's also influenced by the common cause Z, leading to potential confounding in the analysis. It's essential to control for Z when studying the relationship between X and Y.
-    """)
-    mod = smf.ols('Y ~ X + Z', data=df)
-    res = mod.fit()
-    st.text("Regression Summary:")
-    st.text(res.summary().as_text())
+    sm.graphics.regressionplots.plot_partregress('Y'),
