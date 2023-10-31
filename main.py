@@ -35,9 +35,8 @@ def plot_collider_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_xlim([0, 10])
-    ax.set_ylim([0, 10])
     st.pyplot(fig)
+
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
