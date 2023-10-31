@@ -19,19 +19,18 @@ with buttons[2]:
 with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
-# Common function to plot a scatter plot with a calculated regression line
+# Function to plot with a calculated regression line
 def plot_with_regression_line(df, x_col, y_col, title):
+    x = df[x_col]
+    y = df[y_col]
+    coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
+    regression_line = np.polyval(coefficients, x)  # Calculate the regression line
+    
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(df[x_col], df[y_col], alpha=0.5)
     ax.set_xlabel(x_col)
     ax.set_ylabel(y_col)
     
-    # Calculate and plot the regression line
-    x = df[x_col]
-    y = df[y_col]
-    coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
-    regression_line = np.polyval(coefficients, x)  # Calculate the regression line
-
     ax.plot(x, regression_line, color='black', linewidth=1, label='Regression Line')
     ax.legend()
     st.pyplot(fig)
@@ -47,8 +46,8 @@ def simulate_collider_data():
     return df
 
 def plot_collider_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', "Collider DAG")
-    
+    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG')
+
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -80,8 +79,8 @@ def simulate_mediator_data():
     return df
 
 def plot_mediator_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', "Mediator DAG")
-    
+    plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG')
+
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -121,9 +120,10 @@ def simulate_RCT_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
+
 def plot_RCT_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', "RCT DAG")
-    
+    plot_with_regression_line(df, 'X', 'Y', 'RCT DAG')
+
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -153,8 +153,8 @@ def simulate_confounding_data():
     return df
 
 def plot_confounding_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', "Confounding DAG")
-    
+    plot_with_regression_line(df, 'X', 'Y', 'Confounding DAG')
+
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
