@@ -68,6 +68,7 @@ def plot_mediator_dag(df):
     fig, ax = set_plot_settings()
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
+
     st.markdown("**Mediator DAG Explanation**:")
     st.write("""
     In this Mediator DAG, we have three variables: X, Y, and Z. X directly influences Y through Z, acting as a mediator. X indirectly affects Y, and Z plays a crucial role in transmitting the effect of X to Y. Understanding mediator relationships is essential for dissecting causal pathways. In this example, X has an indirect effect on Y through the mediator Z, and it's important to control for Z when analyzing the relationship between X and Y.
@@ -122,3 +123,19 @@ def plot_confounding_dag(df):
     res = mod.fit()
     st.text(res.summary().as_text())
     print(res.summary())
+
+if collider_button:
+    df = simulate_collider_data()
+    plot_collider_dag(df)
+
+if mediator_button:
+    df = simulate_mediator_data()
+    plot_mediator_dag(df)
+
+if RCT_button:
+    df = simulate_RCT_data()
+    plot_RCT_dag(df)
+
+if confounding_button:
+    df = simulate_confounding_data()
+    plot_confounding_dag(df)
