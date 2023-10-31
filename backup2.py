@@ -22,8 +22,8 @@ with buttons[3]:
 # Collider DAG
 def simulate_collider_data():
     SIZE = 1000
-    X = np.random.uniform(0, 10, size=SIZE)
-    Y = np.random.uniform(0, 10, size=SIZE)
+    X = np.random.normal(size=SIZE)
+    Y = np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Z = 2*X + 1*Y + e
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
@@ -35,9 +35,16 @@ def plot_collider_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_xlim([0, 10])
-    ax.set_ylim([0, 10])
+     # Calculate and plot the regression line
+    x = df['X']
+    y = df['Y']
+    coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
+    regression_line = np.polyval(coefficients, x)  # Calculate the regression line
+
+    ax.plot(x, regression_line, color='black', linewidth=1, label='Regression Line')
+    ax.legend()
     st.pyplot(fig)
+
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
