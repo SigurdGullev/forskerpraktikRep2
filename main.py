@@ -45,14 +45,6 @@ def plot_collider_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
-if collider_button:
-    df = simulate_collider_data()
-    plot_collider_dag(df)
-    
     st.markdown("**Collider DAG Explanation**:")
     st.write("""
     In this Collider DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships. In this example, X and Y are not directly related, but their relationship is influenced by the collider Z.
@@ -76,15 +68,6 @@ def plot_mediator_dag(df):
     fig, ax = set_plot_settings()
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
-
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
-if mediator_button:
-    df = simulate_mediator_data()
-    plot_mediator_dag(df)
-
     st.markdown("**Mediator DAG Explanation**:")
     st.write("""
     In this Mediator DAG, we have three variables: X, Y, and Z. X directly influences Y through Z, acting as a mediator. X indirectly affects Y, and Z plays a crucial role in transmitting the effect of X to Y. Understanding mediator relationships is essential for dissecting causal pathways. In this example, X has an indirect effect on Y through the mediator Z, and it's important to control for Z when analyzing the relationship between X and Y.
@@ -109,14 +92,6 @@ def plot_RCT_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
 
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
-if RCT_button:
-    df = simulate_RCT_data()
-    plot_RCT_dag(df)
-
     st.markdown("**RCT DAG Explanation**:")
     st.write("In this RCT (Randomized Control Trial) DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system. In this example, X is a randomized treatment, and Y is the outcome. Z acts as a covariate that is not influenced by the treatment X.")
     mod = smf.ols('Y ~ X + Z', data=df)
@@ -138,14 +113,6 @@ def plot_confounding_dag(df):
     fig, ax = set_plot_settings()
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     st.pyplot(fig)
-
-    fig, ax = set_plot_settings()
-    sm.graphics.regressionplots.plot_partregress('Y', 'X', exog_others=['Z'], data=df, obs_labels=False, ax=ax)
-    st.pyplot(fig)
-
-if confounding_button:
-    df = simulate_confounding_data()
-    plot_confounding_dag(df)
 
     st.markdown("**Confounding DAG Explanation**:")
     st.write("""
