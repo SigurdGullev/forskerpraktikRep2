@@ -32,10 +32,17 @@ def simulate_collider_data():
 def plot_collider_dag(df):
     # Simple scatter plot between X and Y
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
+     # Calculate and plot the regression line
+    x = df['X']
+    y = df['Y']
+    coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
+    regression_line = np.polyval(coefficients, x)  # Calculate the regression line
+
+    ax.plot(x, regression_line, color='red', linewidth=2, label='Regression Line')
+    ax.legend()
     st.pyplot(fig)
 
 
