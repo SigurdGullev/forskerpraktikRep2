@@ -32,6 +32,7 @@ def simulate_collider_data():
 def plot_collider_dag(df):
     # Simple scatter plot between X and Y
     fig, ax = plt.subplots(figsize=(8, 6))
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.scatter(df['X'], df['Y'], alpha=0.5)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
