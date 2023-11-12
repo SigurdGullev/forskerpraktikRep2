@@ -85,7 +85,7 @@ def plot_mediator_dag(df):
     plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG')
 
     # Partial regression with Z as a control variable
-   # fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
