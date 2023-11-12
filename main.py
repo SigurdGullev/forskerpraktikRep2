@@ -56,7 +56,7 @@ def plot_collider_dag(df):
     ax.scatter(df['X'], df['Y'], alpha=0.5, color='#8bcfbd')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    st.pyplot(fig)
+    #st.pyplot(fig)
 
 
 if collider_button:
