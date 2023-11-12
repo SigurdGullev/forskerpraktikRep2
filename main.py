@@ -26,7 +26,7 @@ def plot_with_regression_line(df, x_col, y_col, title, scatter_color='#8bcfbd', 
     coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
     regression_line = np.polyval(coefficients, x)  # Calculate the regression line
     
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(6, 6))
     fig.patch.set_facecolor(background_color)  # Set the background color
 
     ax.scatter(df[x_col], df[y_col], alpha=0.5, color=scatter_color)
@@ -47,8 +47,8 @@ def simulate_collider_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-def plot_collider_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='blue', line_color='black')
+def plot_collider_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -82,14 +82,14 @@ def simulate_mediator_data():
     return df
 
 def plot_mediator_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
-    plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG')
+    plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     fig.patch.set_facecolor(background_color)
     ax.set_xlabel('X')
-    ax.set_ylabel('Yhvad')
+    ax.set_ylabel('Y')
     st.pyplot(fig)
 
 if mediator_button:
@@ -125,8 +125,8 @@ def simulate_RCT_data():
     return df
 
 
-def plot_RCT_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'RCT DAG')
+def plot_RCT_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+    plot_with_regression_line(df, 'X', 'Y', 'RCT DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -156,8 +156,8 @@ def simulate_confounding_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-def plot_confounding_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'Confounding DAG')
+def plot_confounding_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+    plot_with_regression_line(df, 'X', 'Y', 'Confounding DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
 
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
