@@ -44,16 +44,16 @@ def simulate_collider_data():
     Y = np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Z = 2*X + 1*Y + e
-    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
-    return df
+    df_collider = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df_collider
 
-def plot_collider_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+def plot_collider_dag(df_collider):
+    plot_with_regression_line(df_collider, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Collider DAG
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df_collider, ax=ax, obs_labels=False)
     fig.patch.set_facecolor('#e5e5e5')  # Set the background color
-    ax.scatter(df['X'], df['Y'], alpha=0.5, color='#8bcfbd')
+    ax.scatter(df_collider['X'], df_collider['Y'], alpha=0.5, color='#8bcfbd')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -65,16 +65,16 @@ def simulate_mediator_data():
     Z = 1.5 * X + np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Y = 2 * Z + e
-    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
-    return df
+    df_mediator = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df_mediator
 
-def plot_mediator_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+def plot_mediator_dag(df_mediator):
+    plot_with_regression_line(df_mediator, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Mediator DAG
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df_mediator, ax=ax, obs_labels=False)
     fig.patch.set_facecolor('#e5e5e5')
-    ax.scatter(df['X'], df['Y'], alpha=0.5, color='#8bcfbd')
+    ax.scatter(df_mediator['X'], df_mediator['Y'], alpha=0.5, color='#8bcfbd')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -95,16 +95,16 @@ def simulate_RCT_data():
     # Y is influenced by both the treatment X and covariates Z
     Y = 1.5 * X + 2 * Z + e
 
-    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
-    return df
+    df_RCT = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df_RCT
 
-def plot_RCT_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+def plot_RCT_dag(df_RCT):
+    plot_with_regression_line(df_RCT, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to RCT DAG
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df_RCT, ax=ax, obs_labels=False)
     fig.patch.set_facecolor('#e5e5e5')
-    ax.scatter(df['X'], df['Y'], alpha=0.5, color='#8bcfbd')
+    ax.scatter(df_RCT['X'], df_RCT['Y'], alpha=0.5, color='#8bcfbd')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -116,67 +116,67 @@ def simulate_confounding_data():
     X = Z * 1.5 + np.random.normal(size=SIZE)
     e = np.random.normal(size=SIZE)
     Y = 2 * Z + X * 1.3 + e
-    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
-    return df
+    df_confounding = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df_confounding
 
-def plot_confounding_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+def plot_confounding_dag(df_confounding):
+    plot_with_regression_line(df_confounding, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Confounding DAG
     fig, ax = plt.subplots(figsize=(8, 6))
-    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df_confounding, ax=ax, obs_labels=False)
     fig.patch.set_facecolor('#e5e5e5')
-    ax.scatter(df['X'], df['Y'], alpha=0.5, color='#8bcfbd')
+    ax.scatter(df_confounding['X'], df_confounding['Y'], alpha=0.5, color='#8bcfbd')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
 # Button checks and corresponding actions
 if collider_button:
-    df = simulate_collider_data()
-    plot_collider_dag(df)
+    df_collider = simulate_collider_data()
+    plot_collider_dag(df_collider)
     
     st.markdown("**Collider DAG Explanation**:")
     st.write("""
     In this DAG, we have three variables: X, Y, and Z. X and Y are independent variables, and Z is a collider, influenced by both X and Y. This situation represents a collider bias scenario, where the path between X and Y is blocked due to the collider Z. Collider bias can lead to misleading conclusions when analyzing causal relationships.
     """)
-    mod = smf.ols(formula='Y ~ X + Z', data=df)
+    mod = smf.ols(formula='Y ~ X + Z', data=df_collider)
     res = mod.fit()
     st.text(res.summary().as_text())
     print(res.summary())
 
 if mediator_button:
-    df = simulate_mediator_data()
-    plot_mediator_dag(df)
+    df_mediator = simulate_mediator_data()
+    plot_mediator_dag(df_mediator)
 
     st.markdown("**Mediator DAG Explanation**:")
     st.write("""
     Here, we have three variables: X, Y, and Z. X directly influences Y through Z, acting as a mediator. X indirectly affects Y, and Z plays a crucial role in transmitting the effect of X to Y. Understanding mediator relationships is essential for dissecting causal pathways.
     """)
-    mod = smf.ols(formula='Y ~ X + Z', data=df)
+    mod = smf.ols(formula='Y ~ X + Z', data=df_mediator)
     res = mod.fit()
     st.text(res.summary().as_text())
     print(res.summary())
 
 if RCT_button:
-    df = simulate_RCT_data()
-    plot_RCT_dag(df)
+    df_RCT = simulate_RCT_data()
+    plot_RCT_dag(df_RCT)
 
     st.markdown("**RCT DAG Explanation**:")
     st.write("In this DAG, we observe three variables: X, Y, and Z. Z is the common cause of X and Y. It influences both X and Y independently, representing a RCT structure. Studying RCTs helps us understand how a common cause can impact multiple variables in a causal system.")
-    mod = smf.ols(formula='Y ~ X + Z', data=df)
+    mod = smf.ols(formula='Y ~ X + Z', data=df_RCT)
     res = mod.fit()
     st.text(res.summary().as_text())
     print(res.summary())
 
 if confounding_button:
-    df = simulate_confounding_data()
-    plot_confounding_dag(df)
+    df_confounding = simulate_confounding_data()
+    plot_confounding_dag(df_confounding)
 
     st.markdown("**Confounding DAG Explanation**:")
     st.write("""
     This DAG involves three variables: X, Y, and Z. Z acts as a common cause of both X and Y, while X directly affects Y as well. This scenario illustrates the concept of confounding, where a third variable (Z) influences both the treatment (X) and the outcome (Y). Understanding confounding is crucial in causal inference.
     """)
-    mod = smf.ols(formula='Y ~ X + Z', data=df)
+    mod = smf.ols(formula='Y ~ X + Z', data=df_confounding)
     res = mod.fit()
     st.text(res.summary().as_text())
     print(res.summary())
