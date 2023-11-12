@@ -57,6 +57,7 @@ def plot_collider_dag(df):
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
+
 if collider_button:
     df = simulate_collider_data()
     plot_collider_dag(df)
@@ -80,7 +81,7 @@ def simulate_mediator_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-def plot_mediator_dag(df):
+#def plot_mediator_dag(df):
     plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG')
 
     # Partial regression with Z as a control variable

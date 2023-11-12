@@ -1,7 +1,6 @@
 [theme]
-base = "light"
-primaryColor="#ea906c"
-backgroundColor="#efe1de"
-secondaryBackgroundColor="#efe1de"
-textColor="#2b294c"
+primaryColor="#e5e5e5"
+backgroundColor="#289981"
+secondaryBackgroundColor="#4cbfa5"
+textColor="#273a47"
 font = "avenir"
