@@ -23,8 +23,8 @@ with buttons[3]:
 def plot_with_regression_line(df, x_col, y_col, title, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
     x = df[x_col]
     y = df[y_col]
-    coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
-    regression_line = np.polyval(coefficients, x)  # Calculate the regression line
+    #coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
+    #regression_line = np.polyval(coefficients, x)  # Calculate the regression line
     
     fig, ax = plt.subplots(figsize=(9, 6))
     fig.patch.set_facecolor(background_color)  # Set the background color
