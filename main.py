@@ -88,7 +88,7 @@ def plot_mediator_dag(df):
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     ax.set_xlabel('X')
-    ax.set_ylabel('Y')
+    ax.set_ylabel('Ycookie')
     st.pyplot(fig)
 
 if mediator_button:
