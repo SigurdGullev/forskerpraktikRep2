@@ -81,7 +81,7 @@ def simulate_mediator_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-#def plot_mediator_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+def plot_mediator_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
     plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG')
 
     # Partial regression with Z as a control variable
