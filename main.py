@@ -20,7 +20,7 @@ with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
 # Function to plot with a calculated regression line
-def plot_with_regression_line(df, x_col, y_col, title, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+#def plot_with_regression_line(df, x_col, y_col, title, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
     x = df[x_col]
     y = df[y_col]
     coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
@@ -49,7 +49,7 @@ def simulate_collider_data():
     return df
 
 def plot_collider_dag(df, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
-    #plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
