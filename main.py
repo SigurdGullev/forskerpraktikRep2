@@ -131,6 +131,7 @@ def plot_RCT_dag(df, scatter_color='#8bcfbd', line_color='black', background_col
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    fig.patch.set_facecolor(background_color)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
@@ -162,6 +163,7 @@ def plot_confounding_dag(df, scatter_color='#8bcfbd', line_color='black', backgr
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    fig.patch.set_facecolor(background_color)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
