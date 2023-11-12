@@ -89,7 +89,7 @@ def plot_mediator_dag(df, scatter_color='#8bcfbd', line_color='black', backgroun
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     fig.patch.set_facecolor(background_color)
     ax.set_xlabel('X')
-    ax.set_ylabel('Y')
+    ax.set_ylabel('Yhvad')
     st.pyplot(fig)
 
 if mediator_button:
