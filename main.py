@@ -82,15 +82,14 @@ def simulate_mediator_data():
     df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
     return df
 
-def plot_mediator_dag(df, x_col, y_col, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
-    plot_with_regression_line(df, x_col, y_col, 'X', 'Y', 'Mediator DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
-    x = df[x_col]
-    y = df[y_col]
+def plot_mediator_dag(df):
+    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+   
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
     fig.patch.set_facecolor(background_color)
-    ax.scatter(df[x_col], df[y_col], alpha=0.5, color=scatter_color)
+    ax.scatter(df['X'], df['Y'], alpha=0.5, color=scatter_color)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     st.pyplot(fig)
