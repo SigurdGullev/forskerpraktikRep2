@@ -20,7 +20,7 @@ with buttons[3]:
     confounding_button = st.button('Generate Confounding DAG')
 
 # Function to plot with a calculated regression line
-def plot_with_regression_line(df, x_col, y_col, title, scatter_coslor='#8bcfbd', line_color='black', background_color='#e5e5e5'):
+def plot_with_regression_line(df, x_col, y_col, title, scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5'):
     x = df[x_col]
     y = df[y_col]
     coefficients = np.polyfit(x, y, 1)  # Fit a linear regression model
