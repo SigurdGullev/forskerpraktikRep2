@@ -87,8 +87,9 @@ def plot_mediator_dag(df):
     # Partial regression with Z as a control variable
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
+    fig.patch.set_facecolor(background_color)
     ax.set_xlabel('X')
-    ax.set_ylabel('Ycookie')
+    ax.set_ylabel('Y')
     st.pyplot(fig)
 
 if mediator_button:
