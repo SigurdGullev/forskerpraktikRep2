@@ -37,9 +37,18 @@ def plot_with_regression_line(df, x_col, y_col, scatter_color='#8bcfbd', line_co
     ax.legend()
     st.pyplot(fig)
 
-# Plotting functions for each DAG type
+# Collider DAG
+def simulate_collider_data():
+    SIZE = 1000
+    X = np.random.normal(size=SIZE)
+    Y = np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)
+    Z = 2*X + 1*Y + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
 def plot_collider_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'Collider DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Collider DAG
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -49,8 +58,18 @@ def plot_collider_dag(df):
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
+# Mediator DAG
+def simulate_mediator_data():
+    SIZE = 1000
+    X = np.random.normal(size=SIZE)
+    Z = 1.5 * X + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)
+    Y = 2 * Z + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
 def plot_mediator_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'Mediator DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Mediator DAG
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -60,8 +79,27 @@ def plot_mediator_dag(df):
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
+# RCT DAG
+def simulate_RCT_data():
+    SIZE = 1000
+
+    # X is randomized treatment, so not influenced by any other variable
+    X = np.random.normal(size=SIZE)
+
+    # Z is some covariates
+    Z = np.random.normal(size=SIZE)
+
+    # e is the error term
+    e = np.random.normal(size=SIZE)
+
+    # Y is influenced by both the treatment X and covariates Z
+    Y = 1.5 * X + 2 * Z + e
+
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
 def plot_RCT_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'RCT DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to RCT DAG
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
@@ -71,8 +109,18 @@ def plot_RCT_dag(df):
     ax.set_ylabel('Y')
     st.pyplot(fig)
 
+# Confounding DAG
+def simulate_confounding_data():
+    SIZE = 1000
+    Z = np.random.normal(size=SIZE)
+    X = Z * 1.5 + np.random.normal(size=SIZE)
+    e = np.random.normal(size=SIZE)
+    Y = 2 * Z + X * 1.3 + e
+    df = pd.DataFrame({'X': X, 'Y': Y, 'Z': Z})
+    return df
+
 def plot_confounding_dag(df):
-    plot_with_regression_line(df, 'X', 'Y', 'Confounding DAG', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
+    plot_with_regression_line(df, 'X', 'Y', scatter_color='#8bcfbd', line_color='black', background_color='#e5e5e5')
     # Additional plotting specific to Confounding DAG
     fig, ax = plt.subplots(figsize=(8, 6))
     sm.plot_partregress(endog='Y', exog_i='X', exog_others=['Z'], data=df, ax=ax, obs_labels=False)
