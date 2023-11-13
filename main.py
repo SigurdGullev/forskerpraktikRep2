@@ -165,7 +165,7 @@ if mediator_button:
     df_mediator = simulate_mediator_data()
     plot_mediator_dag(df_mediator, scatter_color='#8bcfbd')
     # Display an image from a local file
-    image_path = "/Users/sigurdgullev/Repositories/forskerpraktikRep2/images/Screenshot 2023-11-13 at 09.54.33.png"
+    image_path = "images/Screenshot 2023-11-13 at 09.54.33.png"
     st.image(image_path, caption='', use_column_width=True)
     st.markdown("**Mediator DAG Forklaring**:")
     st.write("""
@@ -189,7 +189,7 @@ if confounding_button:
     df_confounding = simulate_confounding_data()
     plot_confounding_dag(df_confounding, scatter_color='#8bcfbd')
      # Display an image from a local file
-    image_path = "/Users/sigurdgullev/Repositories/forskerpraktikRep2/images/Screenshot 2023-11-13 at 09.57.37.png"
+    image_path = "images/Screenshot 2023-11-13 at 09.57.37.png"
     st.image(image_path, caption='', use_column_width=True)
     st.markdown("**Confounding DAG Forklaring**:")
     st.write("""
