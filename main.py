@@ -237,4 +237,19 @@ Anvendelse af en klassisk RDD-metode, hvor man sammenligner personer lige over o
 if Dif_button:
     image_path = "images/Screenshot 2023-11-13 at 11.08.20.png"
     st.image(image_path, use_column_width=True)
+    st.markdown("**Difference in Difference forklaring:**")
+    st.write("""
+**Treatment og Control Grupper:​**
+
+Treatment Gruppe: Stater, der har legaliseret medicinsk cannabis (MC).​
+
+Control Gruppe: Stater, hvor medicinsk cannabis stadig er ulovligt.​
+
+**DiD Framework:​**
+
+Før Legalisering (Baseline): Sammenligner trafikdødsfald i både behandlings- og kontrolstater før legaliseringen af MC.​
+
+Efter Legalisering (Treatment vs. Control): Ændringer i trafikdødsfald mellem behandlings- og kontrolstater efter legaliseringen af MC.​
+
+**Man kan altså isolere indflydelsen af legaliseringen. Resultatet er at fatale ulykker falder med omkring 10% for befolkningsgruppen mellem 20-39.**""")
     
