@@ -10,18 +10,19 @@ st.title("Directed Acyclical Graphs (DAGs)")
 buttons = st.columns(4)
 
 with buttons[0]:
-    collider_button = st.button('Generate Collider DAG')
-with buttons[1]:
     mediator_button = st.button('Generate Mediator DAG')
-with buttons[2]:
+with buttons[1]:
     confounding_button = st.button('Generate Confounding DAG')
+with buttons[2]:
+    collider_button = st.button('Generate Collider DAG')
 
 
 st.title("Research Design") 
 buttons_under = st.columns(2)
 with buttons_under[0]:
-    Dif_button = st.button('Difference in Difference')
     Reg_button = st.button('Regression Discontinuity')
+    Dif_button = st.button('Difference in Difference')
+    
 
 
 # Function to plot with a calculated regression line
