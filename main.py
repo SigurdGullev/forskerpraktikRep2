@@ -209,27 +209,18 @@ En confounder er en variabel, der er relateret både til den uafhængige variabe
     print(res.summary())
 
 if Reg_button:
-    image_path("images/Screenshot 2023-11-13 at 10.57.37.png")
+    image_path = "images/Screenshot 2023-11-13 at 10.57.37.png"
     st.image(image_path, caption='', use_column_width=True)
     st.markdown("**Regression discontinuity Forklaring**:")
-    st.write("""Problemets Beskrivelse:​
+    st.write(""" 
+**Problemets Beskrivelse:​** Mange, der søger skole i Chile, ansøger ikke tilstrækkeligt mange skoler og ender uden skole, når skoleåret begynder.​
 
-Mange, der søger skole i Chile, ansøger ikke tilstrækkeligt mange skoler og ender uden skole, når skoleåret begynder.​
+**Intervention/Treatment:** En løsning blev implementeret ved at sende advarsler til personer med lav sandsynlighed for at blive optaget på en skole.​
 
-Intervention/Treatment:​
+**Begrænsninger i Advarselssystemet:​** Advarsler blev kun sendt til dem med over 30% chance for at blive optaget på en skole.​
 
-En løsning blev implementeret ved at sende advarsler til personer med lav sandsynlighed for at blive optaget på en skole.​
-
-Begrænsninger i Advarselssystemet:​
-
-Advarsler blev kun sendt til dem med over 30% chance for at blive optaget på en skole.​
-
-Metode: Klassisk RDD (Regression Discontinuity Design):​
-
+**Metode:** Klassisk RDD (Regression Discontinuity Design):​
 Anvendelse af en klassisk RDD-metode, hvor man sammenligner personer lige over og under cut-off'et på 30% sandsynlighed for optagelse.​
 
-​
 
-Mulig Fortolkning af Resultaterne:​
-
-Ved at analysere dem lige over og under grænsen for 30% sandsynlighed kan man evaluere, hvordan advarsler påvirker dem, der er tæt på at blive optaget sammenlignet med dem, der er tæt på ikke at blive optaget.""")
+**Mulig Fortolkning af Resultaterne:​** Ved at analysere dem lige over og under grænsen for 30% sandsynlighed kan man evaluere, hvordan advarsler påvirker dem, der er tæt på at blive optaget sammenlignet med dem, der er tæt på ikke at blive optaget.""")
