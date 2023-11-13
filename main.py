@@ -224,3 +224,8 @@ Anvendelse af en klassisk RDD-metode, hvor man sammenligner personer lige over o
 
 
 **Mulig Fortolkning af Resultaterne:​** Ved at analysere dem lige over og under grænsen for 30% sandsynlighed kan man evaluere, hvordan advarsler påvirker dem, der er tæt på at blive optaget sammenlignet med dem, der er tæt på ikke at blive optaget.""")
+
+if Dif_button:
+    image_path = "images/Screenshot 2023-11-13 at 11.08.20.png"
+    st.image(image_path, use_column_width=True)
+    
