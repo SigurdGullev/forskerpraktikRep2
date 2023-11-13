@@ -152,7 +152,10 @@ if collider_button:
 
 
 **Potentiel Forvirring:**    Hvis vi ikke tager højde for indlæggelse som en mulig collider, kan vi overse, at en væsentlig del af effekten af locomotor sygdom på respiratorisk sygdom faktisk formidles gennem indlæggelse. Ignorerer vi dette, kan vi fejlagtigt tilskrive hele sammenhængen mellem locomotor sygdom og respiratorisk sygdom til locomotor sygdom alene.
-""")
+
+             
+             
+             """)
     mod = smf.ols(formula='Y ~ X + Z', data=df_collider)
     res = mod.fit()
     st.text(res.summary().as_text())
@@ -178,7 +181,10 @@ En mediator er en variabel, der formidler eller forklarer sammenhængen mellem d
 **Faktorer at Overveje:** Kostvaner som variabel Z. 
 
 **Potentiel Forvirring:** Hvis vi ikke tager højde for kostvaner som en mediator, kan vi overse, at en væsentlig del af effekten af motion på vægttab faktisk formidles gennem ændringer i kostvaner. Ignorerer vi dette, kan vi fejlagtigt tilskrive hele effekten til motion alene. 
-    """)
+   
+             
+             
+             """)
     mod = smf.ols(formula='Y ~ X + Z', data=df_mediator)
     res = mod.fit()
     st.text(res.summary().as_text())
@@ -202,7 +208,10 @@ En confounder er en variabel, der er relateret både til den uafhængige variabe
 **Faktorer at Overveje:** Alder som variabel Z. 
 
 **Potentiel Forvirring:** Alder er relateret både til kaffeforbrug og risiko for hjertesygdomme. Hvis vi ikke kontrollerer for alder som en confounder, kan vi fejlagtigt konkludere, at kaffeforbrug direkte påvirker risikoen for hjertesygdomme, når det i virkeligheden kan være alder, der spiller en rolle. 
-    """)
+    
+             
+             
+             """)
     mod = smf.ols(formula='Y ~ X + Z', data=df_confounding)
     res = mod.fit()
     st.text(res.summary().as_text())
